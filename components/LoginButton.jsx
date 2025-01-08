@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import { signIn } from "next-auth/react";
 
 const LoginButton = ({ onSubmit, error, isLoading }) => {
+  const [name,setname]=useState('');
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ email, password });
+    onSubmit({ name,email, password });
   };
 
   return (
@@ -39,6 +40,21 @@ const LoginButton = ({ onSubmit, error, isLoading }) => {
           {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-4">
+            <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="name"
+                  required
+                  value={name}
+                  onChange={(e) => setname(e.target.value)}
+                  className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-150 ease-in-out"
+                  placeholder="Enter your name"
+                />
+              </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                   Email Address

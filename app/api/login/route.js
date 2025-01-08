@@ -9,7 +9,7 @@ import * as z from 'zod';
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { email, password } = body;
+    const { name,email, password } = body;
 
     // Check if user exists
     const users = await executeQuery({
@@ -51,6 +51,7 @@ export async function POST(request) {
       {
         success: true,
         message: 'Login successful',
+        name:name,
         token
       },
       { status: 200 }

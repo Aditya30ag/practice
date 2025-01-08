@@ -5,6 +5,7 @@ import * as z from 'zod';
 
 // Validation schema
 const signupSchema = z.object({
+  name:z.string().min(6, 'name must be at least 6 characters long'),
   email: z.string().email('Invalid email format'),
   password: z.string().min(6, 'Password must be at least 6 characters long'),
 });
@@ -15,7 +16,7 @@ export async function POST(request) {
     
     // Validate input
     const validatedData = signupSchema.parse(body);
-    const { email, password } = validatedData;
+    const { name,email, password } = validatedData;
 
     // Check if user exists
     const existingUser = await executeQuery({
@@ -36,8 +37,8 @@ export async function POST(request) {
 
     // Create new user
     const result = await executeQuery({
-      query: 'INSERT INTO users (email, password) VALUES (?, ?)',
-      values: [email, hashedPassword],
+      query: 'INSERT INTO users (name,email, password) VALUES (?,?, ?)',
+      values: [name,email, hashedPassword],
     });
 
     return NextResponse.json(

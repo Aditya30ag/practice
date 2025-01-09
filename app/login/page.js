@@ -33,6 +33,7 @@ const LoginPage = () => {
 
       if (response.ok) {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('name', data.name);
         router.push('/dashboard')
       } else {
         setError(data.message || 'Login failed. Please try again.');
